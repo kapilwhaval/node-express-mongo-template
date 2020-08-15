@@ -10,3 +10,9 @@ exports.phone = check("phone", "Phone Number should be 10 digits").isLength({ mi
 exports.title = check("title", "Title should have atleast 3 characters").isLength({ min: 3 });
 exports.url = check("url", "URL is required").isLength({ min: 3 });
 exports.id = check("id", "id is required").isLength({ min: 1 })
+
+//roles
+exports.name = check("name", "Role name is required").isLength({ min: 3 })
+exports.description = check("description", "Role description is required").isLength({ min: 3 })
+exports.access_modules = check("access_modules", "Atleast one module is required").isArray();
+exports.array = check("ids", "IDs should be an array").isArray();
