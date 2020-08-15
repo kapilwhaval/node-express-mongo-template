@@ -3,6 +3,7 @@ const router = express.Router();
 const validator = require("../middlewares/validator");
 const { createModule, getModules } = require('../controllers/module-controller');
 const { createRole, getRoles, deleteRoles, editRole } = require('../controllers/roles-controller');
+const { getUsers } = require('../controllers/user-controller');
 const { login, signup } = require('../controllers/auth-controllers');
 const { checkAccountExist, isAuthorized } = require('../middlewares/auth-validator');
 const { checkModuleExist } = require('../middlewares/module-validator');
@@ -20,5 +21,8 @@ router.get('/roles', isAuthorized, getRoles);
 router.post('/create-role', isAuthorized, [validator.name, validator.description, validator.access_modules], createRole)
 router.put('/edit-role', isAuthorized, [validator.name, validator.description, validator.access_modules], editRole)
 router.delete('/delete-roles', isAuthorized, [validator.array], deleteRoles)
+
+//Users
+router.get('/users', isAuthorized, getUsers);
 
 module.exports = router;
