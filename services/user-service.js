@@ -8,3 +8,21 @@ exports.getUsersService = (req, res) => {
         })
     })
 }
+
+exports.deleteUsersService = (query) => {
+    return new Promise((resolve, reject) => {
+        User.deleteMany(query, (err, result) => {
+            if (err || !result) reject(err)
+            else resolve(result);
+        })
+    })
+}
+
+exports.editUserService = (query, data) => {
+    return new Promise((resolve, reject) => {
+        User.findByIdAndUpdate(query, { $set: data }, { new: true, useFindAndModify: false }, (err, user) => {
+            if (err || !user) reject(err)
+            resolve(user);
+        })
+    })
+}
