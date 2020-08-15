@@ -27,3 +27,12 @@ exports.deleteRolesService = (query) => {
         })
     })
 }
+
+exports.editRoleService = (query, data) => {
+    return new Promise((resolve, reject) => {
+        Role.findByIdAndUpdate(query, { $set: data }, { new: true, useFindAndModify: false }, (err, user) => {
+            if (err || !user) reject(err)
+            resolve(user);
+        })
+    })
+}

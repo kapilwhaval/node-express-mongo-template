@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { createRoleService, getRolesService, deleteRolesService } = require('../services/roles-service');
+const { createRoleService, getRolesService, deleteRolesService, editRoleService } = require('../services/roles-service');
 
 exports.createRole = (req, res) => {
     const errors = validationResult(req);
@@ -7,6 +7,14 @@ exports.createRole = (req, res) => {
     createRoleService(req.body)
         .then((role) => res.status(200).json({ message: "Role Created!", role }))
         .catch((err) => res.status(400).json({ message: "Creating role failed", error: err.message }))
+}
+
+exports.editRole = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ message: "All fields required", errors })
+    editRoleService({ _id: req.body._id }, req.body)
+        .then((role) => res.status(200).json({ message: "Role Updated!", role }))
+        .catch((err) => res.status(400).json({ message: "Updating role failed", error: err.message }))
 }
 
 exports.getRoles = (req, res) => {
