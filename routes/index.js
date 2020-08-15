@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require("../middlewares/validator");
 const { createModule, getModules } = require('../controllers/module-controller');
-const { createRole, getRoles, deleteRoles, editRole } = require('../controllers/roles-controller');
+const { createRole, getRoles, deleteRoles, editRole, getRoleByName } = require('../controllers/roles-controller');
 const { getUsers, deleteUsers, editUser } = require('../controllers/user-controller');
 const { login, signup } = require('../controllers/auth-controllers');
 const { checkAccountExist, isAuthorized } = require('../middlewares/auth-validator');
@@ -18,6 +18,7 @@ router.post('/create-module', isAuthorized, [validator.title, validator.url, val
 
 //Roles
 router.get('/roles', isAuthorized, getRoles);
+router.get('/get-role/:user_id', isAuthorized, getRoleByName )
 router.post('/create-role', isAuthorized, [validator.name, validator.description, validator.access_modules], createRole)
 router.put('/edit-role', isAuthorized, [validator.name, validator.description, validator.access_modules], editRole)
 router.delete('/delete-roles', isAuthorized, [validator.array], deleteRoles)

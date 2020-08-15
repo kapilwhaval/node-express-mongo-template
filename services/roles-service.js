@@ -1,4 +1,5 @@
 const Role = require('../models/role');
+const User = require('../models/user');
 
 exports.createRoleService = (data) => {
     return new Promise((resolve, reject) => {
@@ -24,6 +25,17 @@ exports.getRoleByName = (name) => {
         Role.findOne({ name }, (err, role) => {
             if (err || !role) resolve([])
             resolve(role);
+        })
+    })
+}
+
+exports.getRoleByUserId = (user_id) => {
+    return new Promise((resolve, reject) => {
+        User.findById(user_id, (err, user) => {
+            Role.findOne({ name: user.role }, (err, role) => {
+                if (err || !role) resolve([])
+                resolve(role);
+            })
         })
     })
 }

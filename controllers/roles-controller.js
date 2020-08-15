@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const { createRoleService, getRolesService, deleteRolesService, editRoleService } = require('../services/roles-service');
+const { createRoleService, getRolesService, deleteRolesService, editRoleService, getRoleByUserId } = require('../services/roles-service');
 
 exports.createRole = (req, res) => {
     const errors = validationResult(req);
@@ -19,6 +19,12 @@ exports.editRole = (req, res) => {
 
 exports.getRoles = (req, res) => {
     getRolesService()
+        .then((roles) => res.status(200).json({ roles }))
+        .catch((err) => res.status(400).json({ message: "Something went wrong", error: err.message }))
+}
+
+exports.getRoleByName = (req, res) => {
+    getRoleByUserId(req.params.user_id)
         .then((roles) => res.status(200).json({ roles }))
         .catch((err) => res.status(400).json({ message: "Something went wrong", error: err.message }))
 }
