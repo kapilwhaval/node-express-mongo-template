@@ -19,6 +19,15 @@ exports.getRolesService = () => {
     })
 }
 
+exports.getRoleByName = (name) => {
+    return new Promise((resolve, reject) => {
+        Role.findOne({ name }, (err, role) => {
+            if (err || !role) resolve([])
+            resolve(role);
+        })
+    })
+}
+
 exports.deleteRolesService = (query) => {
     return new Promise((resolve, reject) => {
         Role.deleteMany(query, (err, result) => {
